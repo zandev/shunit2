@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e; set -u
+
+# https://github.com/nirvdrum/svn2git
+svn2git --rebase
+cd wiki
+svn up .
+git add .
+cd ..
+cp wiki/ProjectInfo.wiki README.wiki
+git add README.wiki
+git commit -m "Synced wiki"
