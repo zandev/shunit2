@@ -51,7 +51,7 @@ __SHUNIT_MODE_STANDALONE='standalone'
 __SHUNIT_PARENT=${SHUNIT_PARENT:-$0}
 
 # set the constants readonly
-shunit_constants_=`set |grep '^__SHUNIT_' |cut -d= -f1`
+shunit_constants_=`set |grep --text --binary-files=text '^__SHUNIT_' |cut -d= -f1`
 echo "${shunit_constants_}" |grep '^Binary file' >/dev/null && \
     shunit_constants_=`set |grep -a '^__SHUNIT_' |cut -d= -f1`
 for shunit_constant_ in ${shunit_constants_}; do
