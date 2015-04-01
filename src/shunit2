@@ -829,18 +829,18 @@ _shunit_generateReport()
       && _shunit_skipped_="skipped=${__shunit_assertsSkipped}"
 
   if [ ${_shunit_ok_} -eq ${SHUNIT_TRUE} ]; then
-    _shunit_msg_='OK'
+    _shunit_msg_='\e[32mOK'
     [ -n "${_shunit_skipped_}" ] \
         && _shunit_msg_="${_shunit_msg_} (${_shunit_skipped_})"
   else
-    _shunit_msg_="FAILED (${_shunit_failures_}"
+    _shunit_msg_="\e[31mFAILED (${_shunit_failures_}"
     [ -n "${_shunit_skipped_}" ] \
         && _shunit_msg_="${_shunit_msg_},${_shunit_skipped_}"
     _shunit_msg_="${_shunit_msg_})"
   fi
 
   echo
-  echo ${_shunit_msg_}
+  echo -e ${_shunit_msg_}"\e[0m"
   __shunit_reportGenerated=${SHUNIT_TRUE}
 
   unset _shunit_failures_ _shunit_msg_ _shunit_ok_ _shunit_skipped_
@@ -879,7 +879,7 @@ _shunit_assertFail()
   __shunit_testSuccess=${SHUNIT_FALSE}
   __shunit_assertsFailed=`expr ${__shunit_assertsFailed} + 1`
   __shunit_assertsTotal=`expr ${__shunit_assertsTotal} + 1`
-  echo "${__SHUNIT_ASSERT_MSG_PREFIX}${_shunit_msg_}"
+  echo -e "\e[93m${__SHUNIT_ASSERT_MSG_PREFIX}${_shunit_msg_}\e[0m"
 
   unset _shunit_msg_
 }
